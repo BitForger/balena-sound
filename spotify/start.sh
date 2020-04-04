@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
- 
+
 #Check for incompatible multi room and client-only setting
 if [[ -n $DISABLE_MULTI_ROOM ]] && [[ $CLIENT_ONLY_MULTI_ROOM == "1" ]]; then
-  echo “DISABLE_MULTI_ROOM and CLIENT_ONLY_MULTI_ROOM cannot be set simultaneously. Ignoring client-only mode.”
+  echo "DISABLE_MULTI_ROOM and CLIENT_ONLY_MULTI_ROOM cannot be set simultaneously. Ignoring client-only mode."
 fi
- 
-#Exit service if client-only mode is enabled 
+
+#Exit service if client-only mode is enabled
 if [[ -z $DISABLE_MULTI_ROOM ]] && [[ $CLIENT_ONLY_MULTI_ROOM == "1" ]]; then
   exit 0
 fi
@@ -32,4 +32,4 @@ if [[ -z $DISABLE_MULTI_ROOM ]] && [[ $BALENA_DEVICE_TYPE != "raspberry-pi" ]]; 
 fi
 
 # Start raspotify
-exec /usr/bin/librespot --name "$DEVICE_NAME" $SPOTIFY_BACKEND --bitrate 320 --cache /var/cache/raspotify --enable-volume-normalisation --linear-volume --initial-volume=$SYSTEM_OUTPUT_VOLUME $SPOTIFY_CREDENTIALS $SPOTIFY_DEVICE
+exec /usr/bin/librespot --name "$DEVICE_NAME" $SPOTIFY_BACKEND --bitrate 320 --cache /var/cache/raspotify --enable-volume-normalisation --linear-volume --initial-volume=$SYSTEM_OUTPUT_VOLUME --username "$SPOTIFY_LOGIN" --password "$SPOTIFY_PASSWORD" $SPOTIFY_DEVICE
